@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- General -->
+	<string name="app_name">LAN Discoverer</string>
+
+	<!-- Main Activity -->
+	<string name="main_listview_header">LAN machines:</string>
+	<string name="main_start_button">Start discovery</string>
+	<string name="main_stop_button">Stop discovery</string>
+	<string name="main_enable_wifi">Please enable wifi...</string>
+</resources>
