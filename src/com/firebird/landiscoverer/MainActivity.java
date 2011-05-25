@@ -31,48 +31,50 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ArrayList<String> hostsList;
 	private ListViewAdapter adapter;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        //Set view...
-        setContentView(R.layout.main);
+		//Set view...
+		setContentView(R.layout.main);
 
-        //Define elements...
-        context = this;
-        scanTask = new ScanTask();
-        wifi = (WifiManager)context.getSystemService(WIFI_SERVICE);
-        startStopButton = (Button) findViewById(R.id.main_start_stop_button);
-        progressBar = (ProgressBar) findViewById(R.id.main_progress_bar);
-        hostsList = new ArrayList<String>();
-        adapter = new ListViewAdapter(context, R.id.main_list_view, hostsList);
-        ((ListView) findViewById(R.id.main_list_view)).setAdapter(adapter);
+		//Define elements...
+		context = this;
+		scanTask = new ScanTask();
+		wifi = (WifiManager)context.getSystemService(WIFI_SERVICE);
+		startStopButton = (Button) findViewById(R.id.main_start_stop_button);
+		progressBar = (ProgressBar) findViewById(R.id.main_progress_bar);
+		hostsList = new ArrayList<String>();
+		adapter = new ListViewAdapter(context, R.id.main_list_view, hostsList);
+		((ListView) findViewById(R.id.main_list_view)).setAdapter(adapter);
 
-        //Set on click listeners...
-        startStopButton.setOnClickListener(this);
-    }
+		//Set on click listeners...
+		startStopButton.setOnClickListener(this);
+	}
 
-    @Override
+	@Override
 	public void onClick(View v) {
-    	if(scanTask.getStatus() == AsyncTask.Status.RUNNING)
-    		scanTask.cancel(true);
-    	else if(scanTask.getStatus() == AsyncTask.Status.PENDING)
-    		if(!wifi.isWifiEnabled()){
+		if(scanTask.getStatus() == AsyncTask.Status.RUNNING)
+			scanTask.cancel(true);
+		else if(scanTask.getStatus() == AsyncTask.Status.PENDING)
+		{
+			if(!wifi.isWifiEnabled()){
 				Toast.makeText(this, R.string.main_enable_wifi, Toast.LENGTH_LONG).show();
 				return;
 			}
-    		scanTask.execute();
+			scanTask.execute();
+		}
 	}
 
-    class ScanTask extends AsyncTask<Void, String[], Void> {
+	class ScanTask extends AsyncTask<Void, String[], Void> {
 
-    	private static final int maxThreads = 10; //TODO PREFERENCES
-    	private ExecutorService mExecutor;
-    	private DhcpInfo info;
-    	private int numberOfIps;
-    	private long basicIp;
+		private static final int maxThreads = 10;	//TODO PREFERENCES
+		private ExecutorService mExecutor;
+		private DhcpInfo info;
+		private int numberOfIps;
+		private long basicIp;
 
-    	private class CheckReachable implements Runnable {
+		private class CheckReachable implements Runnable {
 
 			private String mTarget;
 
@@ -87,23 +89,20 @@ public class MainActivity extends Activity implements OnClickListener {
 					else
 						publishProgress(new String[]{ "false" });
 				} catch (UnknownHostException e) {
-					//log("Ping: "+e.toString()); TODO
-				} catch (IOException e) {
-					//log("Ping: "+e.toString()); TODO
-				}
+				} catch (IOException e) {}
 			}
-    	}
+		}
 
-    	@Override
-    	public void onPreExecute() {
-    		startStopButton.setText(R.string.main_stop_button);
-    		progressBar.setProgress(0);
-    		info = wifi.getDhcpInfo();
+		@Override
+		public void onPreExecute() {
+			startStopButton.setText(R.string.main_stop_button);
+			progressBar.setProgress(0);
+			info = wifi.getDhcpInfo();
 			basicIp = littleToBigEndian((long)(info.ipAddress & info.netmask));
 			numberOfIps = (int) (littleToBigEndian((long)((info.ipAddress & info.netmask) | ~info.netmask)) - littleToBigEndian((long) (info.ipAddress & info.netmask)));
 			progressBar.setMax(numberOfIps);
-    		return;
-    	}
+			return;
+		}
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
@@ -115,22 +114,17 @@ public class MainActivity extends Activity implements OnClickListener {
 						mExecutor.shutdown();
 						try {
 							mExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
-							// TODO Log.v(MainActivity.LOG_TAG, "Cracking system: "+String.valueOf(maxThreads)+" gone...");
-						} catch (InterruptedException e) {
-							// TODO Log.v(MainActivity.LOG_TAG, "Cracking system: "+e.toString());
-						}
+						} catch (InterruptedException e) {}
 						mExecutor = Executors.newFixedThreadPool(maxThreads);
 						position = 0;
 					}
 					mExecutor.execute(new CheckReachable(intToIp(basicIp+x)));
-					//TODO pos++???????????
+					position++;
 				}
 			mExecutor.shutdown();
 			try {
 				mExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
-			} catch (InterruptedException e) {
-				//TODO Log.v(MainActivity.LOG_TAG, "Cracking system: "+e.toString());
-			}
+			} catch (InterruptedException e) {}
 			return null;
 		}
 
@@ -159,19 +153,21 @@ public class MainActivity extends Activity implements OnClickListener {
 			scanTask = new ScanTask();
 			return;
 		}
-    }
-
-    public long littleToBigEndian(long ip){
-        return (long) ((( ip        & 0xFF) & 0xFF) << 24) +
-        	   (long) ((((ip >> 8)  & 0xFF) & 0xFF) << 16) +
-        	   (long) ((((ip >> 16) & 0xFF) & 0xFF) << 8) +
-        	   (long) ((( ip >> 24) & 0xFF) & 0xFF);
 	}
 
-    public String intToIp(long ip){
-		return ((ip >> 24 ) & 0xFF) + "." +
-			   ((ip >> 16 ) & 0xFF) + "." +
-			   ((ip >>  8 ) & 0xFF) + "." +
-        	   ( ip         & 0xFF);
+	public long littleToBigEndian(long ip){
+		return
+			(long)((( ip     &0xFF)&0xFF)<<24) +
+			(long)((((ip>> 8)&0xFF)&0xFF)<<16) +
+			(long)((((ip>>16)&0xFF)&0xFF)<<8) +
+			(long)((( ip>>24)&0xFF)&0xFF);
+	}
+
+	public String intToIp(long ip){
+		return
+			((ip>>24)&0xFF)+"."+
+			((ip>>16)&0xFF)+"."+
+			((ip>> 8)&0xFF)+"."+
+			( ip     &0xFF);
 	}
 }
