@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
 public class ListViewAdapter extends ArrayAdapter<String> {
 
 	private ArrayList<String> mItems;
