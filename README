@@ -1,4 +1,18 @@
+README:
 Simple host discovery tool for Android
+
+
+LICENSING:
+This tool is distributed under GPL v3 license.
+See http://www.gnu.org/licenses/ for more information.
+
+
+CHANGELOG:
+1.0 - Initial version.
+1.1 - GPL v3 licensing, 
+
 
 TODO:
 - Translations.
+- Images on results.
+- Preferences.
