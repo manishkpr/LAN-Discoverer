@@ -8,4 +8,11 @@
 	<string name="main_start_button">Start discovery</string>
 	<string name="main_stop_button">Stop discovery</string>
 	<string name="main_enable_wifi">Please enable wifi...</string>
+
+	<!-- Main Menu -->
+	<string name="main_menu_preferences">Preferences</string>
+
+	<!-- Preferences -->
+	<string name="preferences_ping_timeout_title">Ping timeout</string>
+	<string name="preferences_ping_timeout_summary">Select how long to wait for a ping response</string>
 </resources>

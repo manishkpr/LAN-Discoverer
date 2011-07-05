@@ -28,10 +28,13 @@ import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -82,6 +85,22 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			scanTask.execute();
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    getMenuInflater().inflate(R.menu.main_menu, menu);
+	    return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    case R.id.main_menu_preferences:
+	    	startActivity(new Intent(context, Preferences.class));
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
 	}
 
 	class ScanTask extends AsyncTask<Void, String[], Void> {
