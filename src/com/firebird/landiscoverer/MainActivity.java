@@ -124,8 +124,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			public void run() {
 				try {
-					if(InetAddress.getByName(mTarget).isReachable(pingTimeout*1000))
-						publishProgress(new String[]{ "true", mTarget });
+					InetAddress ia = InetAddress.getByName(mTarget);
+					if(ia.isReachable(pingTimeout*1000))
+						/* TODO: Get hardware addr, NIC vendor... */
+						publishProgress(new String[]{ "true", ia.getCanonicalHostName() });
 					else
 						publishProgress(new String[]{ "false" });
 				} catch (UnknownHostException e) {

@@ -9,7 +9,7 @@ See http://www.gnu.org/licenses/ for more information.
 
 CHANGELOG:
 1.0 - Initial version.
-1.1 - GPL v3 licensing, little optimizations, preferences.
+1.1 - GPL v3 licensing, little optimizations, preferences, attempt to find machine host name.
 
 
 TODO:
