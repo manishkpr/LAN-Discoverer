@@ -18,10 +18,42 @@
 
 package com.firebird.landiscoverer;
 
+import android.content.Context;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
+import android.widget.Toast;
 
 public class Preferences extends PreferenceActivity {
+
+	Context context;
+
+	OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
+	    @Override
+	    public boolean onPreferenceChange(Preference preference, Object newValue) {
+	    	if(!newValue.toString().equals("")  &&  newValue.toString().matches("\\d*")) {
+		        return true;
+		    } else {
+		        Toast.makeText(context, getResources().getString(R.string.error_not_numerical_value), Toast.LENGTH_SHORT).show();
+		        return false;
+		    }
+	    }
+	};
+
+	OnPreferenceClickListener clearSettingsListener = new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+				Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+				editor.putString(getResources().getString(R.string.prefs_keys_ping_timeout), getResources().getString(R.string.prefs_defs_ping_timeout));
+				editor.putString(getResources().getString(R.string.prefs_keys_max_threads), getResources().getString(R.string.prefs_defs_max_threads));
+				editor.commit();
+				return true;
+		}
+	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,34 +61,14 @@ public class Preferences extends PreferenceActivity {
 
 		//Set view...
 		addPreferencesFromResource(R.xml.preference);
-	}
-	
-	
-	/*Preference.OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
-	    @Override
-	    public boolean onPreferenceChange(Preference preference, Object newValue) {
-	        //Check that the string is an integer.
-	        return numberCheck(newValue);
-	    }
-	};
-	private boolean numberCheck(Object newValue) {
-	    if( !newValue.toString().equals("")  &&  newValue.toString().matches("\\d*") ) {
-	        return true;
-	    }
-	    else {
-	        Toast.makeText(ActivityUserPreferences.this, newValue+" "+getResources().getString(R.string.is_an_invalid_number), Toast.LENGTH_SHORT).show();
-	        return false;
-	    }
-	}
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    //get XML preferences
-	    addPreferencesFromResource(R.xml.user_preferences);
-	    //get a handle on preferences that require validation
-	    delayPreference = getPreferenceScreen().findPreference("pref_delay");
-	    //Validate numbers only
-	    delayPreference.setOnPreferenceChangeListener(numberCheckListener);
-	}*/
 
+		//Define elements...
+		context = this;
+		PreferenceScreen preferenceScreen = getPreferenceScreen();
+
+		//Set listeners...
+		preferenceScreen.findPreference(getResources().getString(R.string.prefs_keys_ping_timeout)).setOnPreferenceChangeListener(numberCheckListener);
+		preferenceScreen.findPreference(getResources().getString(R.string.prefs_keys_max_threads)).setOnPreferenceChangeListener(numberCheckListener);
+		preferenceScreen.findPreference(getResources().getString(R.string.prefs_keys_clear)).setOnPreferenceClickListener(clearSettingsListener);
+	}
 }

@@ -12,7 +12,22 @@
 	<!-- Main Menu -->
 	<string name="main_menu_preferences">Preferences</string>
 
+	<!-- Preference keys and defaults -->
+	<string name="prefs_keys_ping_timeout">PREFS_PING_TIMEOUT</string>
+	<string name="prefs_defs_ping_timeout">2</string>
+	<string name="prefs_keys_max_threads">PREFS_MAX_THR</string>
+	<string name="prefs_defs_max_threads">10</string>
+	<string name="prefs_keys_clear">PREFS_CLEAR</string>
+
 	<!-- Preferences -->
 	<string name="preferences_ping_timeout_title">Ping timeout</string>
-	<string name="preferences_ping_timeout_summary">Select how long to wait for a ping response</string>
+	<string name="preferences_ping_timeout_summary">Select how long to wait for a ping response (Seconds)</string>
+	<string name="preferences_max_threads_title">Maximum threads</string>
+	<string name="preferences_max_threads_summary">How many parallel checks do you want?</string>
+	<string name="preferences_clear_title">Clear preferences</string>
+	<string name="preferences_clear_summary">Restore default preference values</string>
+
+	<!-- Errors -->
+	<string name="error_not_numerical_value">The value you\'ve entered is not numerical. Using default one.</string>
+
 </resources>

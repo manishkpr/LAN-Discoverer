@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-		xmlns:android="http://schemas.android.com/apk/res/android">		
+		xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+    		android:summary="@string/preferences_ping_timeout_summary"
+    		android:key="@string/prefs_keys_ping_timeout"
+    		android:defaultValue="@string/prefs_defs_ping_timeout"
+    		android:dialogTitle="@string/preferences_ping_timeout_title"
+    		android:dialogMessage="@string/preferences_ping_timeout_summary"
+    		android:title="@string/preferences_ping_timeout_title" />
+    <EditTextPreference
+    		android:summary="@string/preferences_max_threads_summary"
+    		android:key="@string/prefs_keys_max_threads"
+    		android:defaultValue="@string/prefs_defs_max_threads"
+    		android:dialogTitle="@string/preferences_max_threads_title"
+    		android:dialogMessage="@string/preferences_max_threads_summary"
+    		android:title="@string/preferences_max_threads_title" />
+    <Preference
+    		android:title="@string/preferences_clear_title"
+    		android:summary="@string/preferences_clear_summary"
+    		android:key="@string/prefs_keys_clear" />		
 </PreferenceScreen>

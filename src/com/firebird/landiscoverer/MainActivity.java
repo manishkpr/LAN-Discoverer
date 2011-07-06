@@ -29,10 +29,12 @@ import java.util.concurrent.TimeUnit;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +51,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ScanTask scanTask;
 	private WifiManager wifi;
 	private Context context;
+	private SharedPreferences prefs;
 	private ArrayList<String> hostsList;
 	private ListViewAdapter adapter;
 
@@ -62,6 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		//Define elements...
 		context = this;
 		scanTask = new ScanTask();
+		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		wifi = (WifiManager)context.getSystemService(WIFI_SERVICE);
 		startStopButton = (Button) findViewById(R.id.main_start_stop_button);
 		progressBar = (ProgressBar) findViewById(R.id.main_progress_bar);
@@ -105,10 +109,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	class ScanTask extends AsyncTask<Void, String[], Void> {
 
-		private static final int maxThreads = 10;	//TODO PREFERENCES
 		private ExecutorService mExecutor;
 		private DhcpInfo info;
-		private int numberOfIps;
+		private int numberOfIps, pingTimeout, maxThreads;
 		private long basicIp;
 
 		private class CheckReachable implements Runnable {
@@ -121,7 +124,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			public void run() {
 				try {
-					if(InetAddress.getByName(mTarget).isReachable(/* TODO Preferences.pingTimeout*1000 */2000))
+					if(InetAddress.getByName(mTarget).isReachable(pingTimeout*1000))
 						publishProgress(new String[]{ "true", mTarget });
 					else
 						publishProgress(new String[]{ "false" });
@@ -134,6 +137,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		public void onPreExecute() {
 			startStopButton.setText(R.string.main_stop_button);
 			progressBar.setProgress(0);
+			pingTimeout = Integer.parseInt(prefs.getString(getResources().getString(R.string.prefs_keys_ping_timeout), getResources().getString(R.string.prefs_defs_ping_timeout)));
+			maxThreads = Integer.parseInt(prefs.getString(getResources().getString(R.string.prefs_keys_max_threads), getResources().getString(R.string.prefs_defs_max_threads)));
 			info = wifi.getDhcpInfo();
 			basicIp = littleToBigEndian((long)(info.ipAddress & info.netmask));
 			numberOfIps = (int) (littleToBigEndian((long)((info.ipAddress & info.netmask) | ~info.netmask)) - littleToBigEndian((long) (info.ipAddress & info.netmask)));
@@ -194,10 +199,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public long littleToBigEndian(long ip){
 		return
-			(long)((( ip     &0xFF)&0xFF)<<24) +
-			(long)((((ip>> 8)&0xFF)&0xFF)<<16) +
-			(long)((((ip>>16)&0xFF)&0xFF)<<8) +
-			(long)((( ip>>24)&0xFF)&0xFF);
+			(long)(( ip     &0xFF)<<24) +
+			(long)(((ip>> 8)&0xFF)<<16) +
+			(long)(((ip>>16)&0xFF)<<8) +
+			(long)(( ip>>24)&0xFF);
 	}
 
 	public String intToIp(long ip){
