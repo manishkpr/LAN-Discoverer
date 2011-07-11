@@ -93,18 +93,18 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    getMenuInflater().inflate(R.menu.main_menu, menu);
-	    return true;
+		getMenuInflater().inflate(R.menu.main_menu, menu);
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	    case R.id.main_menu_preferences:
-	    	startActivity(new Intent(context, Preferences.class));
-	    default:
-	        return super.onOptionsItemSelected(item);
-	    }
+		switch (item.getItemId()) {
+		case R.id.main_menu_preferences:
+			startActivity(new Intent(context, Preferences.class));
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	class ScanTask extends AsyncTask<Void, String[], Void> {

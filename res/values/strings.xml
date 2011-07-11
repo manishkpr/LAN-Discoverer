@@ -22,12 +22,12 @@
 	<!-- Splash Screen -->
 	<string name="splash_loading">Loading...</string>
 	<string name="splash_failed_dialog_error">Error...</string>
-    <string name="splash_failed_dialog_msg">Could not enable wifi. Exiting...</string>
-    <string name="splash_failed_dialog_ok_button">OK</string>
-    <string name="splash_ask_dialog_title">Enable wifi?</string>
-    <string name="splash_ask_dialog_msg">This program needs the wifi to be enabled. Would you like to enable it now?</string>
-    <string name="splash_ask_dialog_yes_button">Yes</string>
-    <string name="splash_ask_dialog_no_button">No</string>
+	<string name="splash_failed_dialog_msg">Could not enable wifi. Exiting...</string>
+	<string name="splash_failed_dialog_ok_button">OK</string>
+	<string name="splash_ask_dialog_title">Enable wifi?</string>
+	<string name="splash_ask_dialog_msg">This program needs the wifi to be enabled. Would you like to enable it now?</string>
+	<string name="splash_ask_dialog_yes_button">Yes</string>
+	<string name="splash_ask_dialog_no_button">No</string>
 
 	<!-- Main Activity -->
 	<string name="main_listview_header">LAN machines:</string>
@@ -55,5 +55,4 @@
 
 	<!-- Errors -->
 	<string name="error_not_numerical_value">The value you\'ve entered is not numerical. Using default one.</string>
-
 </resources>

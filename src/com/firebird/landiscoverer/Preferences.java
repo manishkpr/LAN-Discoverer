@@ -34,24 +34,25 @@ public class Preferences extends PreferenceActivity {
 	Context context;
 
 	OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
-	    @Override
-	    public boolean onPreferenceChange(Preference preference, Object newValue) {
-	    	if(!newValue.toString().equals("")  &&  newValue.toString().matches("\\d*")) {
-		        return true;
-		    } else {
-		        Toast.makeText(context, getResources().getString(R.string.error_not_numerical_value), Toast.LENGTH_SHORT).show();
-		        return false;
-		    }
-	    }
+		@Override
+		public boolean onPreferenceChange(Preference preference, Object newValue) {
+			if(!newValue.toString().equals("")  &&  newValue.toString().matches("\\d*"))
+				return true;
+			else {
+				Toast.makeText(context, getResources().getString(R.string.error_not_numerical_value), Toast.LENGTH_SHORT).show();
+				return false;
+			}
+		}
 	};
 
 	OnPreferenceClickListener clearSettingsListener = new OnPreferenceClickListener() {
+		@Override
 		public boolean onPreferenceClick(Preference preference) {
-				Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-				editor.putString(getResources().getString(R.string.prefs_keys_ping_timeout), getResources().getString(R.string.prefs_defs_ping_timeout));
-				editor.putString(getResources().getString(R.string.prefs_keys_max_threads), getResources().getString(R.string.prefs_defs_max_threads));
-				editor.commit();
-				return true;
+			Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+			editor.putString(getResources().getString(R.string.prefs_keys_ping_timeout), getResources().getString(R.string.prefs_defs_ping_timeout));
+			editor.putString(getResources().getString(R.string.prefs_keys_max_threads), getResources().getString(R.string.prefs_defs_max_threads));
+			editor.commit();
+			return true;
 		}
 	};
 
