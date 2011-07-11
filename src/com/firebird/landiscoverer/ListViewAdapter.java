@@ -27,12 +27,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ListViewAdapter extends ArrayAdapter<String> {
+public class ListViewAdapter extends ArrayAdapter<String[]> {
 
-	private ArrayList<String> mItems;
+	private ArrayList<String[]> mItems;
 	private Context mContext;
 
-	public ListViewAdapter(Context context, int textViewResourceId, ArrayList<String> items) {
+	public ListViewAdapter(Context context, int textViewResourceId, ArrayList<String[]> items) {
 		super(context, textViewResourceId, items);
 		mItems = items;
 		mContext = context;
@@ -43,9 +43,11 @@ public class ListViewAdapter extends ArrayAdapter<String> {
 		View v = convertView;
 		if (v == null)
 			v = ((LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.listview_item, null);
-		String item = mItems.get(position);
-		if (item != null)
-			((TextView) v.findViewById(R.id.listview_item_ipaddr)).setText(item);
+		String[] item = mItems.get(position);
+		if (item[0] != null)
+			((TextView) v.findViewById(R.id.listview_item_ipaddr)).setText(item[0]);
+		if (item[1] != null)
+			((TextView) v.findViewById(R.id.listview_item_haddr)).setText(item[1]);
 		return v;
 	}
 }

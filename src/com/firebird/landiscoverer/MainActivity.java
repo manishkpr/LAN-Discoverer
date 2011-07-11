@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private WifiManager wifi;
 	private Context context;
 	private SharedPreferences prefs;
-	private ArrayList<String> hostsList;
+	private ArrayList<String[]> hostsList;
 	private ListViewAdapter adapter;
 
 	@Override
@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		wifi = (WifiManager)context.getSystemService(WIFI_SERVICE);
 		startStopButton = (Button) findViewById(R.id.main_start_stop_button);
 		progressBar = (ProgressBar) findViewById(R.id.main_progress_bar);
-		hostsList = new ArrayList<String>();
+		hostsList = new ArrayList<String[]>();
 		adapter = new ListViewAdapter(context, R.id.main_list_view, hostsList);
 		((ListView) findViewById(R.id.main_list_view)).setAdapter(adapter);
 
@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				try {
 					InetAddress ia = InetAddress.getByName(mTarget);
 					if(ia.isReachable(pingTimeout*1000))
-						publishProgress(new String[]{ "true", ia.getCanonicalHostName() });
+						publishProgress(new String[]{ "true", ia.getCanonicalHostName(), GetIPInfo.getHardAddr(mTarget)});
 					else
 						publishProgress(new String[]{ "false" });
 				} catch (UnknownHostException e) {
@@ -175,7 +175,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		protected void onProgressUpdate(String[]... params) {
 			progressBar.incrementProgressBy(1);
 			if(Boolean.parseBoolean(params[0][0])) {
-				hostsList.add(params[0][1]);
+				hostsList.add(new String[]{ params[0][1], params[0][2]});
 				adapter.notifyDataSetChanged();
 			}
 			return;
