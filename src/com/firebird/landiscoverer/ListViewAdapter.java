@@ -44,9 +44,8 @@ public class ListViewAdapter extends ArrayAdapter<String> {
 		if (v == null)
 			v = ((LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.listview_item, null);
 		String item = mItems.get(position);
-		if (item != null) { //TODO IMAGES ON RESULTS!
+		if (item != null)
 			((TextView) v.findViewById(R.id.listview_item_ipaddr)).setText(item);
-		}
 		return v;
 	}
 }

@@ -126,7 +126,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				try {
 					InetAddress ia = InetAddress.getByName(mTarget);
 					if(ia.isReachable(pingTimeout*1000))
-						/* TODO: Get hardware addr, NIC vendor... */
 						publishProgress(new String[]{ "true", ia.getCanonicalHostName() });
 					else
 						publishProgress(new String[]{ "false" });
