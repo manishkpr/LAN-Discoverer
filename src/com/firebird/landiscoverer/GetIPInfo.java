@@ -21,6 +21,10 @@ package com.firebird.landiscoverer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+import android.content.Context;
 
 public class GetIPInfo {
 
@@ -28,6 +32,7 @@ public class GetIPInfo {
 		if(ip == null)
 			return null;
 		BufferedReader br = null;
+		String ret = null;
 		try {
 			br = new BufferedReader(new FileReader("/proc/net/arp"));
 			String line;
@@ -36,9 +41,7 @@ public class GetIPInfo {
 				if(splitted != null && splitted.length >= 4 && ip.equals(splitted[0])) {
 					String mac = splitted[3];
 					if (mac.matches("..:..:..:..:..:.."))
-						return mac;
-					else
-						return null;
+						ret = mac;
 				}
 			}
 		} catch (Exception e) {
@@ -50,6 +53,20 @@ public class GetIPInfo {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return ret;
+	}
+
+	static public String getNicVendor(Context ctx, String mac) {
+		if(mac == null)
+			return null;
+		Pattern p = Pattern.compile(mac.toUpperCase().subSequence(0, 7)+"   (.*)");
+		Scanner s = new Scanner(ctx.getResources().openRawResource(R.raw.nic_vendor_db), "UTF-8");
+		String match = null;
+		while (match != null) {
+			match = s.findWithinHorizon(p, 0);
+			if (match != null)
+				match = s.match().group(1);
+		}
+		return match;
 	}
 }

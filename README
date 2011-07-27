@@ -1,5 +1,6 @@
 README:
-Simple host discovery tool for Android
+Simple host discovery tool for Android.
+For updating the NIC vendor list just type "export LC_ALL=C; wget -qO- http://standards.ieee.org/develop/regauth/oui/oui.txt | grep "..-..-..   (hex)" | tr "-" ":" | tr -d "(hex)\t\t" > res/raw/nic_vendor_db" in the root of the project and it will automatically download and prepare the database.
 
 
 LICENSING:
@@ -9,10 +10,9 @@ See http://www.gnu.org/licenses/ for more information.
 
 CHANGELOG:
 1.0 - Initial version.
-1.1 - GPL v3 licensing, little optimizations, preferences, attempt to find machine host name, print MAC, splash screen.
+2.0 - GPL v3 licensing, little optimizations, preferences, attempt to find machine host name, print MAC, splash screen, get NIC vendor from database.
 
 
 TODO:
 - Translations.
 - Images on results.
-- Get NIC vendor.

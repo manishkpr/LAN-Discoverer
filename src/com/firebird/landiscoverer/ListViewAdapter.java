@@ -48,6 +48,8 @@ public class ListViewAdapter extends ArrayAdapter<String[]> {
 			((TextView) v.findViewById(R.id.listview_item_ipaddr)).setText(item[0]);
 		if (item[1] != null)
 			((TextView) v.findViewById(R.id.listview_item_haddr)).setText(item[1]);
+		if (item[2] != null)
+			((TextView) v.findViewById(R.id.listview_item_vendor)).setText(item[2]);
 		return v;
 	}
 }
