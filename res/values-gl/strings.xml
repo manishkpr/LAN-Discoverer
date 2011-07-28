@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ This file is part of LAN Discoverer for Android.
+
+ LAN Discoverer is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ LAN Discoverer is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with LAN Discoverer.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+	<!-- Splash Screen -->
+	<string name="splash_loading">Cargando...</string>
+	<string name="splash_failed_dialog_error">Error...</string>
+	<string name="splash_failed_dialog_msg">Non se puido habilitar o wifi. Saíndo...</string>
+	<string name="splash_failed_dialog_ok_button">OK</string>
+	<string name="splash_ask_dialog_title">Habilitar o wifi?</string>
+	<string name="splash_ask_dialog_msg">Este programa necesita ter o wifi habilitado. Gustaríache habilitalo agora?</string>
+	<string name="splash_ask_dialog_yes_button">Sí</string>
+	<string name="splash_ask_dialog_no_button">Non</string>
+
+	<!-- Main Activity -->
+	<string name="main_listview_header">Máquinas de rede:</string>
+	<string name="main_start_button">Comezar o escaneo</string>
+	<string name="main_stop_button">Parar o escaneo</string>
+	<string name="main_enable_wifi">Por favor, habilita o wifi...</string>
+
+	<!-- Main Menu -->
+	<string name="main_menu_preferences">Axustes</string>
+
+	<!-- Preferences -->
+	<string name="preferences_ping_timeout_title">Tempo de espera ping</string>
+	<string name="preferences_ping_timeout_summary">Selecciona canto esperar por unha resposta dunha máquina de rede (Segundos)</string>
+	<string name="preferences_max_threads_title">Fios paralelos</string>
+	<string name="preferences_max_threads_summary">Cantas comprobacións simultáneas desexas que faga o programa?</string>
+	<string name="preferences_clear_title">Limpar axustes</string>
+	<string name="preferences_clear_summary">Restaurar os axustes por defecto</string>
+
+	<!-- Errors -->
+	<string name="error_not_numerical_value">O valor que especificache non é numérico, usando o valor por defecto.</string>
+</resources>

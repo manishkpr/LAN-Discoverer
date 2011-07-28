@@ -10,9 +10,8 @@ See http://www.gnu.org/licenses/ for more information.
 
 CHANGELOG:
 1.0 - Initial version.
-2.0 - GPL v3 licensing, little optimizations, preferences, attempt to find machine host name, print MAC, splash screen, get NIC vendor from database.
+2.0 - GPL v3 licensing, little optimizations, preferences, attempt to find machine host name, print MAC, splash screen, get NIC vendor from database, Spanish and Galician translations.
 
 
 TODO:
-- Translations.
 - Images on results.

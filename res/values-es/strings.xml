@@ -23,7 +23,7 @@
 	<string name="splash_failed_dialog_ok_button">OK</string>
 	<string name="splash_ask_dialog_title">¿Habilitar wifi?</string>
 	<string name="splash_ask_dialog_msg">Este programa necesita el wifi habilitado. ¿Te gustaría habilitarlo ahora?</string>
-	<string name="splash_ask_dialog_yes_button">Si</string>
+	<string name="splash_ask_dialog_yes_button">Sí</string>
 	<string name="splash_ask_dialog_no_button">No</string>
 
 	<!-- Main Activity -->
