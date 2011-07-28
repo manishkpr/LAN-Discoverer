@@ -29,7 +29,15 @@ import android.content.Context;
 
 public class GetIPInfo {
 
-	static public String getHardAddr(String ip) {
+	private Context mContext;
+	private InputStream is;
+
+	public GetIPInfo(Context ctx) {
+		mContext = ctx;
+		is = mContext.getResources().openRawResource(R.raw.nic_vendor_db);
+	}
+
+	public String getHardAddr(String ip) {
 		if(ip == null)
 			return null;
 		BufferedReader br = null;
@@ -59,12 +67,11 @@ public class GetIPInfo {
 		return ret;
 	}
 
-	static public String getNicVendor(Context ctx, String mac) {
+	public String getNicVendor(String mac) {
 		if(mac == null)
 			return null;
 		String[] smac = mac.toUpperCase().split(":");
 		Pattern p = Pattern.compile(smac[0]+"-"+smac[1]+"-"+smac[2]+" (.*)");
-		InputStream is = ctx.getResources().openRawResource(R.raw.nic_vendor_db);
 		Scanner scanner = new Scanner(is, "UTF-8");
 		String match = "";
 		while (match != null) {

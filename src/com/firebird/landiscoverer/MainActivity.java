@@ -54,6 +54,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private SharedPreferences prefs;
 	private ArrayList<String[]> hostsList;
 	private ListViewAdapter adapter;
+	private GetIPInfo ipInfo;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		hostsList = new ArrayList<String[]>();
 		adapter = new ListViewAdapter(context, R.id.main_list_view, hostsList);
 		((ListView) findViewById(R.id.main_list_view)).setAdapter(adapter);
+		ipInfo = new GetIPInfo(context);
 
 		//Set on click listeners...
 		startStopButton.setOnClickListener(this);
@@ -126,8 +128,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				try {
 					InetAddress ia = InetAddress.getByName(mTarget);
 					if(ia.isReachable(pingTimeout*1000)) {
-						String mac = GetIPInfo.getHardAddr(mTarget);
-						publishProgress(new String[]{ "true", ia.getCanonicalHostName(), mac, GetIPInfo.getNicVendor(context, mac) });
+						String mac = ipInfo.getHardAddr(mTarget);
+						publishProgress(new String[]{ "true", ia.getCanonicalHostName(), mac, ipInfo.getNicVendor(mac) });
 					} else
 						publishProgress(new String[]{ "false" });
 				} catch (UnknownHostException e) {
