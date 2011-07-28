@@ -16,7 +16,7 @@
  *
  */
 
-package com.firebird.landiscoverer;
+package com.firebird.landiscoverer2;
 
 import android.app.Activity;
 import android.app.AlertDialog;

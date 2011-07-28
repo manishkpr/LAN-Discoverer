@@ -16,7 +16,7 @@
  *
  */
 
-package com.firebird.landiscoverer;
+package com.firebird.landiscoverer2;
 
 import java.io.IOException;
 import java.net.InetAddress;

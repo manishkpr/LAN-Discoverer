@@ -16,7 +16,7 @@
  *
  */
 
-package com.firebird.landiscoverer;
+package com.firebird.landiscoverer2;
 
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
