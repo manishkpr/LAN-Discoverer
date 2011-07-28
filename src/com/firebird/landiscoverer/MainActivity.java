@@ -176,7 +176,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		protected void onProgressUpdate(String[]... params) {
 			progressBar.incrementProgressBy(1);
 			if(Boolean.parseBoolean(params[0][0])) {
-				hostsList.add(new String[]{ params[0][1], params[0][2]});
+				hostsList.add(new String[]{ params[0][1], params[0][2], params[0][3]});
 				adapter.notifyDataSetChanged();
 			}
 			return;

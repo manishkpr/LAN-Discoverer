@@ -21,6 +21,7 @@ package com.firebird.landiscoverer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -40,8 +41,10 @@ public class GetIPInfo {
 				String[] splitted = line.split(" +");
 				if(splitted != null && splitted.length >= 4 && ip.equals(splitted[0])) {
 					String mac = splitted[3];
-					if (mac.matches("..:..:..:..:..:.."))
+					if (mac.matches("..:..:..:..:..:..")) {
 						ret = mac;
+						break;
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -59,13 +62,17 @@ public class GetIPInfo {
 	static public String getNicVendor(Context ctx, String mac) {
 		if(mac == null)
 			return null;
-		Pattern p = Pattern.compile(mac.toUpperCase().subSequence(0, 7)+"   (.*)");
-		Scanner s = new Scanner(ctx.getResources().openRawResource(R.raw.nic_vendor_db), "UTF-8");
-		String match = null;
+		String[] smac = mac.toUpperCase().split(":");
+		Pattern p = Pattern.compile(smac[0]+"-"+smac[1]+"-"+smac[2]+" (.*)");
+		InputStream is = ctx.getResources().openRawResource(R.raw.nic_vendor_db);
+		Scanner scanner = new Scanner(is, "UTF-8");
+		String match = "";
 		while (match != null) {
-			match = s.findWithinHorizon(p, 0);
-			if (match != null)
-				match = s.match().group(1);
+			match = scanner.findWithinHorizon(p, 0);
+			if (match != null) {
+				match = scanner.match().group(1);
+				break;
+			}
 		}
 		return match;
 	}
