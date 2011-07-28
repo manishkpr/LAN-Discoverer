@@ -201,7 +201,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	public long littleToBigEndian(long ip){
+	static public long littleToBigEndian(long ip){
 		return
 			(long)(( ip     &0xFF)<<24) +
 			(long)(((ip>> 8)&0xFF)<<16) +
@@ -209,7 +209,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			(long)(( ip>>24)&0xFF);
 	}
 
-	public String intToIp(long ip){
+	static public String intToIp(long ip){
 		return
 			((ip>>24)&0xFF)+"."+
 			((ip>>16)&0xFF)+"."+

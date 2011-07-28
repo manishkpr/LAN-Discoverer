@@ -25,21 +25,30 @@ import java.io.InputStream;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import android.app.Activity;
 import android.content.Context;
+import android.net.wifi.WifiManager;
 
 public class GetIPInfo {
 
 	private Context mContext;
 	private InputStream is;
+	private WifiManager wifi;
+	private String mIpAddr, mMacAddr;
 
 	public GetIPInfo(Context ctx) {
 		mContext = ctx;
 		is = mContext.getResources().openRawResource(R.raw.nic_vendor_db);
+		wifi = (WifiManager)mContext.getSystemService(Activity.WIFI_SERVICE);
+		mIpAddr = MainActivity.intToIp(MainActivity.littleToBigEndian(wifi.getDhcpInfo().ipAddress));
+		mMacAddr = wifi.getConnectionInfo().getMacAddress();
 	}
 
 	public String getHardAddr(String ip) {
 		if(ip == null)
 			return null;
+		if(ip.equals(mIpAddr))
+			return mMacAddr;
 		BufferedReader br = null;
 		String ret = null;
 		try {
