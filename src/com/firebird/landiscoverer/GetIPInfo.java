@@ -21,24 +21,24 @@ package com.firebird.landiscoverer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 
 public class GetIPInfo {
 
 	private Context mContext;
-	private InputStream is;
+	private Resources res;
 	private WifiManager wifi;
 	private String mIpAddr, mMacAddr;
 
 	public GetIPInfo(Context ctx) {
 		mContext = ctx;
-		is = mContext.getResources().openRawResource(R.raw.nic_vendor_db);
+		res = mContext.getResources();
 		wifi = (WifiManager)mContext.getSystemService(Activity.WIFI_SERVICE);
 		mIpAddr = MainActivity.intToIp(MainActivity.littleToBigEndian(wifi.getDhcpInfo().ipAddress));
 		mMacAddr = wifi.getConnectionInfo().getMacAddress();
@@ -81,7 +81,7 @@ public class GetIPInfo {
 			return null;
 		String[] smac = mac.toUpperCase().split(":");
 		Pattern p = Pattern.compile(smac[0]+"-"+smac[1]+"-"+smac[2]+" (.*)");
-		Scanner scanner = new Scanner(is, "UTF-8");
+		Scanner scanner = new Scanner(res.openRawResource(R.raw.nic_vendor_db), "UTF-8");
 		String match = "";
 		while (match != null) {
 			match = scanner.findWithinHorizon(p, 0);
