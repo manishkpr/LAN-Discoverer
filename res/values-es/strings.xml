@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ This file is part of LAN Discoverer for Android.
+
+ LAN Discoverer is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ LAN Discoverer is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with LAN Discoverer.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+	<!-- Splash Screen -->
+	<string name="splash_loading">Cargando...</string>
+	<string name="splash_failed_dialog_error">Error...</string>
+	<string name="splash_failed_dialog_msg">Error habilitanto el wifi. Saliendo...</string>
+	<string name="splash_failed_dialog_ok_button">OK</string>
+	<string name="splash_ask_dialog_title">¿Habilitar wifi?</string>
+	<string name="splash_ask_dialog_msg">Este programa necesita el wifi habilitado. ¿Te gustaría habilitarlo ahora?</string>
+	<string name="splash_ask_dialog_yes_button">Si</string>
+	<string name="splash_ask_dialog_no_button">No</string>
+
+	<!-- Main Activity -->
+	<string name="main_listview_header">Máquinas en la red:</string>
+	<string name="main_start_button">Comenzar el escaneo</string>
+	<string name="main_stop_button">Parar el escaneo</string>
+	<string name="main_enable_wifi">Por favor habilita el wifi...</string>
+
+	<!-- Main Menu -->
+	<string name="main_menu_preferences">Ajustes</string>
+
+	<!-- Preferences -->
+	<string name="preferences_ping_timeout_title">Tiempo de espera ping</string>
+	<string name="preferences_ping_timeout_summary">Selecciona cuanto tiempo esperar la respuesta de una máquina de red (Segundos)</string>
+	<string name="preferences_max_threads_title">Hilos paralelos</string>
+	<string name="preferences_max_threads_summary">¿Cuantas comprobaciones al mismo tiempo quieres que el programa haga?</string>
+	<string name="preferences_clear_title">Limpiar ajustes</string>
+	<string name="preferences_clear_summary">Restaurar los ajustes por defecto</string>
+
+	<!-- Errors -->
+	<string name="error_not_numerical_value">El valor que has utilizado no es numérico. Usando el valor por defecto.</string>
+</resources>
