@@ -1,5 +1,5 @@
 README:
-Simple host discovery tool for Android.
+Simple host discovery tool for Android written by Antonio Vázquez Blanco <antoniovazquezblanco@gmail.com>.
 For updating the NIC vendor list just type "export LC_ALL=C; wget -qO- http://standards.ieee.org/develop/regauth/oui/oui.txt | grep "..-..-..   (hex)" | tr -d "\t" | tr -d "(hex)" | sed "s/   / /g" > res/raw/nic_vendor_db" in the root of the project and it will automatically download and prepare the database.
 
 
